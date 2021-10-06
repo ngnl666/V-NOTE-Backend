@@ -1,8 +1,9 @@
 const { uuid } = require('uuidv4');
+const { mongoose } = require('.');
 
 module.exports = mongoose => {
-    const Note = mongoose.model(
-        'Note',
+    const Publish = mongoose.model(
+        'Publish',
         mongoose.Schema(
             {
                 _id: { type: String, default: uuid.v4 },
@@ -13,10 +14,12 @@ module.exports = mongoose => {
                 title: String,
                 tags: Array,
                 content: String,
+                author: String,
+                like: Number,
             },
             { timestamps: true }
         )
     );
 
-    return Note;
+    return Publish;
 };

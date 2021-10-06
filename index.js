@@ -17,8 +17,6 @@ app.use(cors(corsOptions));
 db.mongoose
     .connect(db.url, {
         useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
         useUnifiedTopology: true,
     })
     .then(() => console.log('Connect db succeeded!'))
@@ -29,9 +27,11 @@ db.mongoose
 
 // routes
 const note = require('./app/routes/note');
-app.use('api/note', note);
+
+app.use('/api/note', note, (req, res, next) => {
+    res.header('Acces-Control-Allow-Headers', 'Access-Control-Allow-Credentials: true', 'Origin, Cotent-Type, Accept');
+    next();
+});
 
 // server
-app.listen(PORT, () => {
-    console.log('Server is running .');
-});
+app.listen(PORT, () => console.log('Server is running.'));
