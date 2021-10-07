@@ -7,6 +7,8 @@ const db = require('./app/models');
 const app = express();
 const corsOptions = {
     origin: 'http://localhost:3000',
+    method: ['GET', 'PUT', 'POST', 'DELETE'],
+    allowedHeaders: ['Origin', 'Content-Type', 'Authorization', 'Accept', 'x-access-token'],
 };
 
 app.use(express.json());
@@ -28,10 +30,7 @@ db.mongoose
 // routes
 const note = require('./app/routes/note');
 
-app.use('/api/note', note, (req, res, next) => {
-    res.header('Acces-Control-Allow-Headers', 'Access-Control-Allow-Credentials: true', 'Origin, Cotent-Type, Accept');
-    next();
-});
+app.use('/api/note', note, (req, res, next) => next());
 
 // server
 app.listen(PORT, () => console.log('Server is running.'));

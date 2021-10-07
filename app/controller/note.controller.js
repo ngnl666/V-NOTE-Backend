@@ -1,19 +1,26 @@
+const fs = require('fs');
+const path = require('path');
 const db = require('../models');
 const Note = db.note;
 const handleErrorMsg = require('./errorHandle');
 
 // CRUD Controll
 exports.create = (req, res) => {
-    if (!req.body.data) {
+    if (!req.body) {
         handleErrorMsg(res, 400, '標題和內容不得為空!');
         return;
     }
 
-    const { data } = req.body;
+    // const { data } = req.body;
     const note = new Note({
-        title: data.title,
-        tags: data.tags,
-        content: data.content,
+        author: req.body.author,
+        title: req.body.title,
+        tags: req.body.tags,
+        content: req.body.content,
+        // img: {
+        //     data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+        //     contentType: 'image/png',
+        // },
     });
 
     note.save()
@@ -28,7 +35,7 @@ exports.getAll = (req, res) => {
 };
 
 exports.getOne = (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
 
     Note.findById(id)
         .then(data => (data ? res.send(data) : handleErrorMsg(res, 404, '找不到此文章!')))
@@ -41,7 +48,8 @@ exports.update = (req, res) => {
         return;
     }
 
-    const { id, data } = req.body;
+    const { id } = req.params;
+    const { data } = req.body;
 
     Note.findByIdAndUpdate(id, data).then(data =>
         data ? res.send('文章更新成功!') : handleErrorMsg(res, 404, '文章更新失敗!')
@@ -49,7 +57,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
 
     Note.findByIdAndRemove(id)
         .then(data => (data ? res.send('文章刪除成功!') : handleErrorMsg(res, 404, '文章刪除失敗!')))
