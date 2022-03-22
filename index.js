@@ -7,7 +7,7 @@ const db = require('./app/models');
 const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://v-note-mongo.herokuapp.com/api/',
   method: ['GET', 'PUT', 'POST', 'DELETE'],
   allowedHeaders: [
     // 'Origin',
