@@ -6,9 +6,11 @@ module.exports = (mongoose) => {
     mongoose.Schema(
       {
         _id: { type: String, default: uuidv4 },
+        uid: String,
         author: String,
         title: String,
         content: String,
+        shared: Boolean,
         tags: Array,
         image: Array,
       },

@@ -5,7 +5,7 @@ const note = require('../controller/note.controller');
 // BaseUrl: /api/note/
 router.post('/', note.create);
 
-router.get('/', note.getAll);
+router.get('/all/:uid', note.getAll);
 
 router.get('/:id', note.getOne);
 

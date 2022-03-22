@@ -10,10 +10,12 @@ exports.create = (req, res) => {
   }
 
   const note = new Note({
+    uid: req.body.uid,
     author: req.body.author,
     title: req.body.title,
     tags: req.body.tags,
     content: req.body.content,
+    shared: req.body.shared,
     image: req.body.image,
   });
 
@@ -24,7 +26,10 @@ exports.create = (req, res) => {
 };
 
 exports.getAll = (req, res) => {
-  Note.find()
+  const { uid } = req.params;
+
+  Note.find({ uid: uid })
+    .sort({ createdAt: 'desc' })
     .then((data) => res.send(data))
     .catch((err) => handleErrorMsg(res, 500, err.message));
 };
@@ -48,7 +53,7 @@ exports.update = (req, res) => {
   const { id } = req.params;
   const { data } = req.body;
 
-  Note.findByIdAndUpdate(id, data).then((data) =>
+  Note.findByIdAndUpdate(id, data, { new: true }).then((data) =>
     data ? res.send('文章更新成功!') : handleErrorMsg(res, 404, '文章更新失敗!')
   );
 };

@@ -36,8 +36,10 @@ db.mongoose
 
 // routes
 const note = require('./app/routes/note');
+const publish = require('./app/routes/publish');
 
 app.use('/api/note', note, (req, res, next) => next());
+app.use('/api/publish', publish, (req, res, next) => next());
 
 // server
 app.listen(PORT, () => console.log('Server is running.'));
