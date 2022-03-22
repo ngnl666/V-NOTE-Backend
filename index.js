@@ -7,7 +7,7 @@ const db = require('./app/models');
 const app = express();
 
 const corsOptions = {
-  origin: 'https://ngnl666.github.io/V-NOTE/',
+  origin: 'https://ngnl666.github.io/',
   method: ['GET', 'PUT', 'POST', 'DELETE'],
   allowedHeaders: [
     'Origin',
