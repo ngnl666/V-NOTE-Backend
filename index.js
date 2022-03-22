@@ -7,7 +7,7 @@ const db = require('./app/models');
 const app = express();
 
 const corsOptions = {
-  origin: 'https://v-note-mongo.herokuapp.com/',
+  origin: 'https://ngnl666.github.io/V-NOTE/',
   method: ['GET', 'PUT', 'POST', 'DELETE'],
   allowedHeaders: [
     'Origin',
