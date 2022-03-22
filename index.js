@@ -7,7 +7,7 @@ const db = require('./app/models');
 const app = express();
 
 const corsOptions = {
-  origin: 'https://ngnl666.github.io/',
+  origin: '*',
   method: ['GET', 'PUT', 'POST', 'DELETE'],
   allowedHeaders: [
     'Origin',
